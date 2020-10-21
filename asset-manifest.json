@@ -1,0 +1,35 @@
+{
+  "files": {
+    "main.css": "/HMS/static/css/main.01af9f8e.chunk.css",
+    "main.js": "/HMS/static/js/main.cf32ed7d.chunk.js",
+    "main.js.map": "/HMS/static/js/main.cf32ed7d.chunk.js.map",
+    "runtime-main.js": "/HMS/static/js/runtime-main.973daac0.js",
+    "runtime-main.js.map": "/HMS/static/js/runtime-main.973daac0.js.map",
+    "static/css/2.553583bc.chunk.css": "/HMS/static/css/2.553583bc.chunk.css",
+    "static/js/2.a7f5f2a2.chunk.js": "/HMS/static/js/2.a7f5f2a2.chunk.js",
+    "static/js/2.a7f5f2a2.chunk.js.map": "/HMS/static/js/2.a7f5f2a2.chunk.js.map",
+    "index.html": "/HMS/index.html",
+    "precache-manifest.8b16c711e5fd643a79a68225fab1d0d9.js": "/HMS/precache-manifest.8b16c711e5fd643a79a68225fab1d0d9.js",
+    "service-worker.js": "/HMS/service-worker.js",
+    "static/css/2.553583bc.chunk.css.map": "/HMS/static/css/2.553583bc.chunk.css.map",
+    "static/css/main.01af9f8e.chunk.css.map": "/HMS/static/css/main.01af9f8e.chunk.css.map",
+    "static/js/2.a7f5f2a2.chunk.js.LICENSE.txt": "/HMS/static/js/2.a7f5f2a2.chunk.js.LICENSE.txt",
+    "static/media/BC.png": "/HMS/static/media/BC.b8ff7213.png",
+    "static/media/LandingPage.css": "/HMS/static/media/Blur-4.aeecfa03.jpg",
+    "static/media/ENT.png": "/HMS/static/media/ENT.267f6873.png",
+    "static/media/Gastroenterology.png": "/HMS/static/media/Gastroenterology.98297da0.png",
+    "static/media/Manitoba.jpg": "/HMS/static/media/Manitoba.f1fb17dd.jpg",
+    "static/media/Onco.jpg": "/HMS/static/media/Onco.61d19661.jpg",
+    "static/media/Profile.png": "/HMS/static/media/Profile.655429e5.png",
+    "static/media/Quebec.png": "/HMS/static/media/Quebec.10ddb6da.png",
+    "static/media/font-awesome.min.css": "/HMS/static/media/fontawesome-webfont.fee66e71.woff",
+    "static/media/neurology.png": "/HMS/static/media/neurology.34e760b4.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.973daac0.js",
+    "static/css/2.553583bc.chunk.css",
+    "static/js/2.a7f5f2a2.chunk.js",
+    "static/css/main.01af9f8e.chunk.css",
+    "static/js/main.cf32ed7d.chunk.js"
+  ]
+}
