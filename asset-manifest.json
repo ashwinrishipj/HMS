@@ -1,36 +1,37 @@
 {
   "files": {
-    "main.css": "/HMS/static/css/main.e9990571.chunk.css",
-    "main.js": "/HMS/static/js/main.693b63cd.chunk.js",
-    "main.js.map": "/HMS/static/js/main.693b63cd.chunk.js.map",
+    "main.css": "/HMS/static/css/main.f6ea37d4.chunk.css",
+    "main.js": "/HMS/static/js/main.1de1e45c.chunk.js",
+    "main.js.map": "/HMS/static/js/main.1de1e45c.chunk.js.map",
     "runtime-main.js": "/HMS/static/js/runtime-main.973daac0.js",
     "runtime-main.js.map": "/HMS/static/js/runtime-main.973daac0.js.map",
     "static/css/2.553583bc.chunk.css": "/HMS/static/css/2.553583bc.chunk.css",
-    "static/js/2.07673375.chunk.js": "/HMS/static/js/2.07673375.chunk.js",
-    "static/js/2.07673375.chunk.js.map": "/HMS/static/js/2.07673375.chunk.js.map",
+    "static/js/2.1806cac9.chunk.js": "/HMS/static/js/2.1806cac9.chunk.js",
+    "static/js/2.1806cac9.chunk.js.map": "/HMS/static/js/2.1806cac9.chunk.js.map",
     "index.html": "/HMS/index.html",
-    "precache-manifest.fa2fd1d86ece8f64d2fbf227708c7d8f.js": "/HMS/precache-manifest.fa2fd1d86ece8f64d2fbf227708c7d8f.js",
+    "precache-manifest.b441840c667c540565dfa71c9cca9d02.js": "/HMS/precache-manifest.b441840c667c540565dfa71c9cca9d02.js",
     "service-worker.js": "/HMS/service-worker.js",
     "static/css/2.553583bc.chunk.css.map": "/HMS/static/css/2.553583bc.chunk.css.map",
-    "static/css/main.e9990571.chunk.css.map": "/HMS/static/css/main.e9990571.chunk.css.map",
-    "static/js/2.07673375.chunk.js.LICENSE.txt": "/HMS/static/js/2.07673375.chunk.js.LICENSE.txt",
+    "static/css/main.f6ea37d4.chunk.css.map": "/HMS/static/css/main.f6ea37d4.chunk.css.map",
+    "static/js/2.1806cac9.chunk.js.LICENSE.txt": "/HMS/static/js/2.1806cac9.chunk.js.LICENSE.txt",
     "static/media/BC.png": "/HMS/static/media/BC.b8ff7213.png",
     "static/media/LandingPage.css": "/HMS/static/media/Blur-4.aeecfa03.jpg",
     "static/media/ENT.png": "/HMS/static/media/ENT.267f6873.png",
     "static/media/Gastroenterology.png": "/HMS/static/media/Gastroenterology.98297da0.png",
     "static/media/Manitoba.jpg": "/HMS/static/media/Manitoba.f1fb17dd.jpg",
     "static/media/Onco.jpg": "/HMS/static/media/Onco.61d19661.jpg",
-    "static/media/Profile.png": "/HMS/static/media/Profile.655429e5.png",
     "static/media/Quebec.png": "/HMS/static/media/Quebec.10ddb6da.png",
     "static/media/font-awesome.min.css": "/HMS/static/media/fontawesome-webfont.fee66e71.woff",
     "static/media/infection.jpg": "/HMS/static/media/infection.39288763.jpg",
-    "static/media/neurology.png": "/HMS/static/media/neurology.34e760b4.png"
+    "static/media/neurology.png": "/HMS/static/media/neurology.34e760b4.png",
+    "static/media/ontario.webp": "/HMS/static/media/ontario.2ed1f214.webp",
+    "static/media/prince edward.webp": "/HMS/static/media/prince edward.45822ddd.webp"
   },
   "entrypoints": [
     "static/js/runtime-main.973daac0.js",
     "static/css/2.553583bc.chunk.css",
-    "static/js/2.07673375.chunk.js",
-    "static/css/main.e9990571.chunk.css",
-    "static/js/main.693b63cd.chunk.js"
+    "static/js/2.1806cac9.chunk.js",
+    "static/css/main.f6ea37d4.chunk.css",
+    "static/js/main.1de1e45c.chunk.js"
   ]
 }
