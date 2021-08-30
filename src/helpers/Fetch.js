@@ -30,7 +30,7 @@ export const FetchData = (body) => {
 };
 
 export const LoginFetchData = (body) => {
-  return fetch("http://localhost:4000/graphql", {
+  return fetch("https://hms-server.herokuapp.com/graphql", {
     method: "POST",
     body: JSON.stringify(body),
     headers: {
@@ -52,7 +52,8 @@ export const LoginFetchData = (body) => {
         return true;
       } else {
         return Response.errors[0].message;
-      }})
+      }
+    })
     .catch((error) => {
       if (!error.response) {
         return false;
@@ -60,4 +61,35 @@ export const LoginFetchData = (body) => {
     });
 };
 
+export const LockScreenValidate = (body) => {
+  return fetch("https://hms-server.herokuapp.com/graphql", {
+    method: "POST",
+    body: JSON.stringify(body),
+    headers: {
+      Accept: "appliction/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => {
+      if (res.Status !== 200 && res.Status !== 500) {
+        console.log('Looks like there was a problem. Status Code: ' +
+          res.Status);
+        return false;
+      }
+      return res.json();
+    })
+    .then((Response) => {
+      if (Response.data == (null || undefined)) {
+        return "incorrect password";
+      } else {
+        alert("response.data is not equal to null:");
+        return Response.data.lockScreenValidation;
+      }
+    })
+    .catch((error) => {
+      if (!error.response) {
+        return false;
+      }
+    });
+};
 export default withRouter;

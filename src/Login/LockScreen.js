@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Container, Card, Row, Col, Form, Button, InputGroup } from 'react-bootstrap';
 import { useDispatch } from "react-redux";
-import { FetchData } from '../helpers/Fetch';
+import { FetchData, LockScreenValidate } from '../helpers/Fetch';
 import { route } from "../redux/actions";
 
-const LockScreen = (props) => {
+const LockScreen = () => {
     const [password, setpassword] = useState('');
     const [error, seterror] = useState('');
     const [disabled, setdisabled] = useState(true);
@@ -42,8 +42,8 @@ const LockScreen = (props) => {
               `,
         };
 
-        FetchData(requestBody).then((response) => {
-            if (response.data.lockScreenValidation === true) {
+        LockScreenValidate(requestBody).then((response) => {
+            if (response === true) {
                 dispatch(route("dashBoard"))
             }
             else {
@@ -63,17 +63,16 @@ const LockScreen = (props) => {
                                 <i className="fa fa-lock fa-2x" aria-hidden="true"></i>{' '}
                             </h2>
                             <Card.Header>Lock Screen </Card.Header>
-
+                            <section style={{ backgroundColor: "red" }}>
+                                {alert.length !== 0 ? (
+                                    <>
+                                        <p className="text-white">{alert}</p>
+                                    </>
+                                ) : (
+                                    ''
+                                )}
+                            </section>
                             <Card.Body>
-                                <section>
-                                    {!alert !== 0 ? (
-                                        <>
-                                            <Form.Label className="text-danger">{alert}</Form.Label>
-                                        </>
-                                    ) : (
-                                        ''
-                                    )}
-                                </section>
                                 <Form>
                                     <Form.Group>
                                         <InputGroup className="col-md-10 ml-4">
@@ -99,7 +98,7 @@ const LockScreen = (props) => {
                                         className="lock-button btn-md"
                                     >
                                         unlock
-									</Button>
+                                    </Button>
                                 </Form>
                             </Card.Body>
                         </Card>
