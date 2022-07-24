@@ -56,6 +56,7 @@ function AppointmentLists() {
 
 		FetchData(requestBody)
 			.then((Response) => {
+				console.log("response", Response)
 				setappointmentDetails(Response.data.getAppointmentDetails);
 				setisAppointmentSet(true);
 			})
@@ -244,6 +245,7 @@ function AppointmentLists() {
 			</div>
 		)
 	}
+
 	const displayScheduledAppointments = () => {
 		return (
 			<Modal size="lg" show={true} onHide={() => setisModifyAppointment(false)}
@@ -305,7 +307,7 @@ function AppointmentLists() {
 							<h5 className="text-primary"> Doctor Appointments:</h5>
 							{isAppointmentSet ? (
 								<CardColumns>
-									{appointmentDetails.doctorAppointments.map((data, key) => {
+									{appointmentDetails?.doctorAppointments?.map((data, key) => {
 										return (
 											<Card text={"white"}
 												className="mt-4 text-light rounded-border"
