@@ -6,7 +6,7 @@ import { OverlayTrigger, Spinner } from "react-bootstrap";
 import { withRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { route, FormRoute } from "../redux/actions";
-import ForgetPassword from "./ForgotPassword";
+import ForgetPassword from "./forgotPassword";
 import { emailToolTip, passwordToolTip } from "../Alerts/emailToolTip";
 
 function LoginForm() {
