@@ -32,35 +32,30 @@ export default function Mail() {
             getMailData(emailId:"${localStorage.getItem("emailId")}"){
               emailId,
               inbox{
-                _id,
                 emailId,
                 date,
                 subject,
                 content
               },
               sent{
-                _id,
                 emailId,
                 date,
                 subject,
                 content
               },
               starred{
-                _id,
                 emailId,
                 date,
                 subject,
                 content
               },
               deleted{
-                _id,
                 emailId,
                 date,
                 subject,
                 content
               },
               social{
-                _id,
                 emailId,
                 date,
                 subject,
@@ -72,7 +67,7 @@ export default function Mail() {
     };
 
     useEffect(() => {
-        fetchMail(body).then(response => {
+       fetchMail(body).then(response => {
             if (!response.message) {
                 setmailData(response);
                 setnavigateMail(0);

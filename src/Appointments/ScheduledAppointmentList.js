@@ -305,13 +305,12 @@ function AppointmentLists() {
 							<h5 className="text-primary"> Doctor Appointments:</h5>
 							{isAppointmentSet ? (
 								<CardColumns>
-									{appointmentDetails.doctorAppointments.map((data, key) => {
+									{appointmentDetails?.doctorAppointments?.map((data, key) => {
 										return (
 											<Card text={"white"}
 												className="mt-4 text-light rounded-border"
 												onClick={() => ModifyAppointment(data, true)}
 												key={key} >
-												<Card.Img variant="top" src="holder.js/100px160" />
 												<Card.Body>
 													<Card.Title>Dr.{data.doctorDetails.name}</Card.Title>
 													<Card.Text>
@@ -347,7 +346,6 @@ function AppointmentLists() {
 							:
 
 							<div>
-
 								<Toast variant={"light"} classNAme="mt-3">
 									<Toast.Body>Click on the Appointment list to view the description</Toast.Body>
 								</Toast>
