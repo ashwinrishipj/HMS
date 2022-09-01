@@ -420,7 +420,7 @@ export default function AppointmentSchedule() {
 													</Card.Footer>
 													<Button variant="info" onClick={() => displayAppointmentForm(data)}>
 														Schedule Appointment
-									</Button>
+													</Button>
 												</Card>
 											);
 										})
@@ -435,7 +435,6 @@ export default function AppointmentSchedule() {
 															className="mt-2 text-light rounded-border"
 															key={key}
 														>
-															<Card.Img variant="top" src={require(`./images/province/${data.image}`)} />
 															<Card.Body>
 																<Card.Title text={"dark"}> {data.name}</Card.Title>
 																<Card.Text>

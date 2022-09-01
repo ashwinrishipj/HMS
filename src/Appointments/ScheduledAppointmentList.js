@@ -313,7 +313,6 @@ function AppointmentLists() {
 												className="mt-4 text-light rounded-border"
 												onClick={() => ModifyAppointment(data, true)}
 												key={key} >
-												<Card.Img variant="top" src="holder.js/100px160" />
 												<Card.Body>
 													<Card.Title>Dr.{data.doctorDetails.name}</Card.Title>
 													<Card.Text>
@@ -349,19 +348,9 @@ function AppointmentLists() {
 							:
 
 							<div>
-
 								<Toast variant={"light"} classNAme="mt-3">
 									<Toast.Body>Click on the Appointment list to view the description</Toast.Body>
 								</Toast>
-
-								<Col>
-									<div className="embed-responsive embed-responsive-16by9 mt-4">
-										<iframe className="embed-responsive-item"
-											width="890" height="515"
-
-											src="https://youtube.com/embed/fp6UZ_I4zj0" frameborder="0" allowfullscreen></iframe>
-									</div>
-								</Col>
 							</div>
 						}
 					</div>
