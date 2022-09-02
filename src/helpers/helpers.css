@@ -1,9 +1,0 @@
-.image{
-    
-}
-.image:hover{
-    transform: scale(1.2) !important;
-}
-.image:focus{
-    transform: scale(1.2) !important;
-}
