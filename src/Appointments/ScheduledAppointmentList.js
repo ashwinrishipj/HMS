@@ -281,7 +281,6 @@ function AppointmentLists() {
 												className="mt-4 text-light rounded-border"
 												onClick={() => ModifyAppointment(data, false)}
 												key={key} >
-												<Card.Img variant="top" src="holder.js/100px160" />
 												<Card.Body>
 													<Card.Title>{data.name}</Card.Title>
 													<Card.Text>
