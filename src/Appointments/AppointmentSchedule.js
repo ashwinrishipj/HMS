@@ -106,7 +106,7 @@ export default function AppointmentSchedule() {
 			`,
 		};
 
-		fetch('https://hms-server.herokuapp.com/graphql', {
+		fetch('http://localhost:4000/graphql', {
 			method: 'POST',
 			body: JSON.stringify(requestBody),
 			headers: {

@@ -30,7 +30,7 @@ export const FetchData = (body) => {
 };
 
 export const LoginFetchData = (body) => {
-  return fetch("https://hms-server.herokuapp.com/graphql", {
+  return fetch("http://localhost:4000/graphql", {
     method: "POST",
     body: JSON.stringify(body),
     headers: {
@@ -62,7 +62,7 @@ export const LoginFetchData = (body) => {
 };
 
 export const LockScreenValidate = (body) => {
-  return fetch("https://hms-server.herokuapp.com/graphql", {
+  return fetch("http://localhost:4000/graphql", {
     method: "POST",
     body: JSON.stringify(body),
     headers: {
