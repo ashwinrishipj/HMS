@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Card, Row, Col, Form, Button, InputGroup } from 'react-bootstrap';
 import { useDispatch } from "react-redux";
-import { FetchData, LockScreenValidate } from '../helpers/Fetch';
+import { LockScreenValidate } from '../helpers/Fetch';
 import { route } from "../redux/actions";
 
 const LockScreen = () => {
@@ -43,13 +43,14 @@ const LockScreen = () => {
         };
 
         LockScreenValidate(requestBody).then((response) => {
+            console.log("respones:", response);
             if (response === true) {
                 dispatch(route("dashBoard"))
             }
             else {
-                response === (null || undefined)
-                    ? setalert('Server is down!. We are working on it.')
-                    : setalert(response);
+                response === (null || undefined || false)
+                    ? setalert('incorrect password')
+                    : setalert('server down!. we are working on it');
             }
         });
     };
