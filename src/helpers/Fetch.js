@@ -71,20 +71,11 @@ export const LockScreenValidate = (body) => {
     },
   })
     .then((res) => {
-      if (res.Status !== 200 && res.Status !== 500) {
-        console.log('Looks like there was a problem. Status Code: ' +
-          res.Status);
-        return false;
-      }
       return res.json();
     })
     .then((Response) => {
-      if (Response.data == (null || undefined)) {
-        return "incorrect password";
-      } else {
-        alert("response.data is not equal to null:");
-        return Response.data.lockScreenValidation;
-      }
+      if(Response.status === 500) return false;
+      return Response.data?.lockScreenValidation === true;
     })
     .catch((error) => {
       if (!error.response) {

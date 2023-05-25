@@ -95,7 +95,6 @@ export default function ScheduleDoctorAppointment() {
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.stopPropagation();
-            alert('insert data');
         } else {
             setValidated(true);
             handleShow();

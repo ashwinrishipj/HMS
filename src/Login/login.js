@@ -14,7 +14,7 @@ function Login() {
                         <Nav className="ml-auto">
                             <Nav.Link href="#home">Login</Nav.Link>
                             <Nav.Link href="#about">About</Nav.Link>
-                            <Nav.Link href="#services">Services</Nav.Link>
+                            {/* <Nav.Link href="#services">Services</Nav.Link> */}
                             <Nav.Link href="#contact">Contact</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
@@ -73,7 +73,7 @@ function Login() {
                 </div>
             </section>
 
-            <section id="services" className="bg-light">
+            {/* <section id="services" className="bg-light">
                 <div className="container text-center">
                     <div className="row mt-4">
                         <div className="col my-auto mt-4">
@@ -139,7 +139,7 @@ function Login() {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
 
             <section id="contact " className="bg-dark">
                 <div className="container-fluid row h-100">
@@ -152,7 +152,7 @@ function Login() {
                         </div>
                         <div className="py-5  mb-0">
                             <div className="container">
-                                <p className="m-0 text-center text-white">Copyright © Ashwin Rishi  2020</p>
+                                <p className="m-0 text-center text-white">Copyright © Ashwin Rishi 2022</p>
                             </div>
                         </div>
                     </div>

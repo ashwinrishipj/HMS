@@ -133,7 +133,6 @@ export default function AppointmentSchedule() {
 		const form = event.currentTarget;
 		if (form.checkValidity() === false) {
 			event.stopPropagation();
-			alert('insert data');
 		} else {
 			setValidated(true);
 			handleShow();
@@ -386,7 +385,7 @@ export default function AppointmentSchedule() {
 						{isProvince ?
 							<>
 								<div>
-									<Form.Group controlId="exampleForm.ControlSelect1">
+									<Form.Group className="mx-auto col-4" controlId="exampleForm.ControlSelect1">
 										<Form.Label className="text-primary mt-4">Select Your Province</Form.Label>
 										<Form.Control sm={12} as="select" onChange={(e) => handleForm(e)}>
 											<option value="none">none</option>
@@ -400,7 +399,7 @@ export default function AppointmentSchedule() {
 									{isSearched ? (
 										hospitalList.map((data, index) => {
 											return (
-												<Card bg={'light'} className="mt-2 text-dark " key={index}>
+												<Card bg={'dark'} className="mt-4 mx-auto col-10 text-light rounded " key={index}>
 													<Card.Header>
 														<b>
 															{index + 1}: {data.name}{' '}
@@ -419,9 +418,9 @@ export default function AppointmentSchedule() {
 															</Col>
 														</Row>
 													</Card.Footer>
-													<Button variant="info" onClick={() => displayAppointmentForm(data)}>
+													<Button variant="info mt-2 mb-2" onClick={() => displayAppointmentForm(data)}>
 														Schedule Appointment
-									</Button>
+													</Button>
 												</Card>
 											);
 										})
@@ -436,7 +435,6 @@ export default function AppointmentSchedule() {
 															className="mt-2 text-light rounded-border"
 															key={key}
 														>
-															<Card.Img variant="top" src={require(`./images/province/${data.image}`)} />
 															<Card.Body>
 																<Card.Title text={"dark"}> {data.name}</Card.Title>
 																<Card.Text>
