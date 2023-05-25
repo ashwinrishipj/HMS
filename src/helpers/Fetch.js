@@ -1,7 +1,7 @@
 import { withRouter } from "react-router-dom";
 
 export const FetchData = (body) => {
-  return fetch("http://localhost:4000/graphql", {
+  return fetch("https://hms-server.herokuapp.com/graphql", {
     method: "POST",
     body: JSON.stringify(body),
     headers: {

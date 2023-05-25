@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Container, Card, Col, Row, CardColumns, CardGroup, Breadcrumb, Button } from "react-bootstrap";
 
-function Home() {
+async function Home() {
     const [generalAPI, setgeneralAPI] = useState();
     const [apiReceived, setapiReceived] = useState(false);
     const [newsData, setnewsData] = useState([]);
@@ -31,7 +31,7 @@ function Home() {
     }
 
     const fetchCountryList = () => {
-        fetch(`https://rapidapi.p.rapidapi.com/countries`, {
+        await fetch(`https://rapidapi.p.rapidapi.com/countries`, {
             "method": "GET",
             "headers": {
                 "x-rapidapi-host": "covid-193.p.rapidapi.com",
@@ -99,6 +99,7 @@ function Home() {
             setisCountrySuggested(false);
         }
     }
+    
     const selectedCountry = (data) => {
         setcountrySuggestions([]);
         setisCountrySuggested(false);
@@ -185,7 +186,6 @@ function Home() {
                                                 {data.description}
                                             </Card.Text>
                                             <Button variant="outline-warning" className="mt-2" href={newsData[key].url} target="_blank">Read More...</Button>
-
                                         </Card.Body>
                                     </Card>
                                 </>

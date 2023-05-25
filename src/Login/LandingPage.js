@@ -13,28 +13,28 @@ export const LandingPage = () => {
 
   return (
     <BrowserRouter>
-        <Switch>
-          {(route === "lockScreen" && (
-            <Route path="/" component={() => (
-              <LockScreen />
-            )} />
+      <Switch>
+        {(route === "lockScreen" && (
+          <Route path="/" component={() => (
+            <LockScreen />
+          )} />
+        )) ||
+          (route === ("login" || "logout") && (
+            <Route
+              path="/"
+              component={() => (
+                <Login />
+              )}
+            />
           )) ||
-            (route === "login" && (
-              <Route
-                path="/"
-                component={() => (
-                  <Login />
-                )}
-              />
-            )) ||
-            (route === "dashBoard" && (
-              <Route
-                path="/"
-                component={() => (
-                  <DashBoard />
-                )}
-              />)) || ""}
-        </Switch>
+          (route === "dashBoard" && (
+            <Route
+              path="/"
+              component={() => (
+                <DashBoard />
+              )}
+            />)) || ""}
+      </Switch>
     </BrowserRouter>
   );
 };
