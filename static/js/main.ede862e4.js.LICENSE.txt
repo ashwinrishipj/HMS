@@ -10,13 +10,6 @@ object-assign
   http://jedwatson.github.io/classnames
 */
 
-/*!
- * The buffer module from node.js, for the browser.
- *
- * @author   Feross Aboukhadijeh <http://feross.org>
- * @license  MIT
- */
-
 /*! ../collections */
 
 /*! ./../webpack/buildin/module.js */
@@ -58,6 +51,8 @@ object-assign
 /*! no static exports found */
 
 /*! react-is */
+
+/*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
 
 /*!***********************************!*\
         !*** (webpack)/buildin/module.js ***!

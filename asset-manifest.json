@@ -1,31 +1,23 @@
 {
   "files": {
-    "main.css": "/HMS/static/css/main.cfccca65.chunk.css",
-    "main.js": "/HMS/static/js/main.97e29768.chunk.js",
-    "main.js.map": "/HMS/static/js/main.97e29768.chunk.js.map",
-    "runtime-main.js": "/HMS/static/js/runtime-main.973daac0.js",
-    "runtime-main.js.map": "/HMS/static/js/runtime-main.973daac0.js.map",
-    "static/css/2.553583bc.chunk.css": "/HMS/static/css/2.553583bc.chunk.css",
-    "static/js/2.b6d13dbf.chunk.js": "/HMS/static/js/2.b6d13dbf.chunk.js",
-    "static/js/2.b6d13dbf.chunk.js.map": "/HMS/static/js/2.b6d13dbf.chunk.js.map",
+    "main.css": "/HMS/static/css/main.cc887932.css",
+    "main.js": "/HMS/static/js/main.ede862e4.js",
+    "static/media/fontawesome-webfont.svg?v=4.7.0": "/HMS/static/media/fontawesome-webfont.c1e38fd9e0e74ba58f7a.svg",
+    "static/media/Blur-4.jpg": "/HMS/static/media/Blur-4.e3ef71f4decfc620cab7.jpg",
+    "static/media/fontawesome-webfont.eot": "/HMS/static/media/fontawesome-webfont.8b43027f47b20503057d.eot",
+    "static/media/fontawesome-webfont.ttf?v=4.7.0": "/HMS/static/media/fontawesome-webfont.1e59d2330b4c6deb84b3.ttf",
+    "static/media/fontawesome-webfont.woff?v=4.7.0": "/HMS/static/media/fontawesome-webfont.f691f37e57f04c152e23.woff",
+    "static/media/Gastroenterology.png": "/HMS/static/media/Gastroenterology.db8d2a83c821a069e3a8.png",
+    "static/media/fontawesome-webfont.woff2?v=4.7.0": "/HMS/static/media/fontawesome-webfont.20fd1704ea223900efa9.woff2",
+    "static/media/neurology.png": "/HMS/static/media/neurology.3e5fd698c17db78c8487.png",
+    "static/media/ENT.png": "/HMS/static/media/ENT.e7e24d12bfe003fdfd67.png",
+    "static/media/Onco.jpg": "/HMS/static/media/Onco.fce1ee3ca61633dfdf33.jpg",
     "index.html": "/HMS/index.html",
-    "precache-manifest.cde4971d5dd66d021b5c569a5eec680e.js": "/HMS/precache-manifest.cde4971d5dd66d021b5c569a5eec680e.js",
-    "service-worker.js": "/HMS/service-worker.js",
-    "static/css/2.553583bc.chunk.css.map": "/HMS/static/css/2.553583bc.chunk.css.map",
-    "static/css/main.cfccca65.chunk.css.map": "/HMS/static/css/main.cfccca65.chunk.css.map",
-    "static/js/2.b6d13dbf.chunk.js.LICENSE.txt": "/HMS/static/js/2.b6d13dbf.chunk.js.LICENSE.txt",
-    "static/media/LandingPage.css": "/HMS/static/media/Blur-4.aeecfa03.jpg",
-    "static/media/ENT.png": "/HMS/static/media/ENT.267f6873.png",
-    "static/media/Gastroenterology.png": "/HMS/static/media/Gastroenterology.98297da0.png",
-    "static/media/Onco.jpg": "/HMS/static/media/Onco.61d19661.jpg",
-    "static/media/font-awesome.min.css": "/HMS/static/media/fontawesome-webfont.fee66e71.woff",
-    "static/media/neurology.png": "/HMS/static/media/neurology.34e760b4.png"
+    "main.cc887932.css.map": "/HMS/static/css/main.cc887932.css.map",
+    "main.ede862e4.js.map": "/HMS/static/js/main.ede862e4.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.973daac0.js",
-    "static/css/2.553583bc.chunk.css",
-    "static/js/2.b6d13dbf.chunk.js",
-    "static/css/main.cfccca65.chunk.css",
-    "static/js/main.97e29768.chunk.js"
+    "static/css/main.cc887932.css",
+    "static/js/main.ede862e4.js"
   ]
 }
