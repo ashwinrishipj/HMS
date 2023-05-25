@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Container, Card, Col, Row, CardColumns, CardGroup, Breadcrumb, Button } from "react-bootstrap";
 
-async function Home() {
+function Home() {
     const [generalAPI, setgeneralAPI] = useState();
     const [apiReceived, setapiReceived] = useState(false);
     const [newsData, setnewsData] = useState([]);
@@ -31,7 +31,7 @@ async function Home() {
     }
 
     const fetchCountryList = () => {
-        await fetch(`https://rapidapi.p.rapidapi.com/countries`, {
+        fetch(`https://rapidapi.p.rapidapi.com/countries`, {
             "method": "GET",
             "headers": {
                 "x-rapidapi-host": "covid-193.p.rapidapi.com",

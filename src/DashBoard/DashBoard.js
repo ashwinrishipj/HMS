@@ -5,7 +5,7 @@ import {
   Row,
   Col,
   Breadcrumb
-} from "../../node_modules/react-bootstrap";
+} from "react-bootstrap";
 import Navigation from "../Navbar/Navigation";
 import PageNavigation from "../Navbar/pageNavigation";
 import SideBar from "../Navbar/SideBar";
