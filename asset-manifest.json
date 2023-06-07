@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/HMS/static/css/main.cc887932.css",
-    "main.js": "/HMS/static/js/main.e8e97b71.js",
+    "main.js": "/HMS/static/js/main.46c8db90.js",
     "static/media/fontawesome-webfont.svg?v=4.7.0": "/HMS/static/media/fontawesome-webfont.c1e38fd9e0e74ba58f7a.svg",
     "static/media/Blur-4.jpg": "/HMS/static/media/Blur-4.e3ef71f4decfc620cab7.jpg",
     "static/media/fontawesome-webfont.eot": "/HMS/static/media/fontawesome-webfont.8b43027f47b20503057d.eot",
@@ -14,10 +14,10 @@
     "static/media/Onco.jpg": "/HMS/static/media/Onco.fce1ee3ca61633dfdf33.jpg",
     "index.html": "/HMS/index.html",
     "main.cc887932.css.map": "/HMS/static/css/main.cc887932.css.map",
-    "main.e8e97b71.js.map": "/HMS/static/js/main.e8e97b71.js.map"
+    "main.46c8db90.js.map": "/HMS/static/js/main.46c8db90.js.map"
   },
   "entrypoints": [
     "static/css/main.cc887932.css",
-    "static/js/main.e8e97b71.js"
+    "static/js/main.46c8db90.js"
   ]
 }
