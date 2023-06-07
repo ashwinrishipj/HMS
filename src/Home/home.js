@@ -133,7 +133,7 @@ function Home() {
                             <Card className="text-center rounded-border">
                                 <Card.Body>
                                     <Card.Text className="font-recovered ">
-                                        {apiReceived ? generalAPI.response[0].cases.recovered : ""}
+                                        {apiReceived ? generalAPI?.response[0]?.cases?.recovered : ""}
                                     </Card.Text>
                                     Recovered
                                 </Card.Body>
@@ -141,7 +141,7 @@ function Home() {
                             <Card className="text-center rounded-border ml-3">
                                 <Card.Body>
                                     <Card.Text className="font-active">
-                                        {apiReceived ? generalAPI.response[0].cases.active : ""}
+                                        {apiReceived ? generalAPI?.response[0]?.cases?.active : ""}
                                     </Card.Text>
                                      active
                                 </Card.Body>
@@ -149,7 +149,7 @@ function Home() {
                             <Card className="text-center rounded-border ml-3">
                                 <Card.Body>
                                     <Card.Text className="font-deaths">
-                                        {apiReceived ? generalAPI.response[0].deaths.total : ""}
+                                        {apiReceived ? generalAPI?.response[0]?.deaths.total : ""}
                                     </Card.Text>
                                      deaths
                                 </Card.Body>
@@ -159,11 +159,11 @@ function Home() {
                             <Card.Body>
                                 Critical:
                                     <Card.Text className="font-active">
-                                    {apiReceived ? generalAPI.response[0].cases.critical : ""}
+                                    {apiReceived ? generalAPI?.response[0]?.cases.critical : ""}
                                 </Card.Text>
                                     Total Affected:
                                     <Card.Text className="font-active">
-                                    {apiReceived ? generalAPI.response[0].cases.total : ""}
+                                    {apiReceived ? generalAPI?.response[0]?.cases.total : ""}
                                 </Card.Text>
                             </Card.Body>
                         </Card>
