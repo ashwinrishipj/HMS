@@ -1,7 +1,7 @@
 import { withRouter } from "react-router-dom";
 
 export const FetchData = (body) => {
-  return fetch("https://hms-server.herokuapp.com/graphql", {
+  return fetch("https://hms-server-5ef591a9975d.herokuapp.com/graphql", {
     method: "POST",
     body: JSON.stringify(body),
     headers: {
@@ -30,7 +30,7 @@ export const FetchData = (body) => {
 };
 
 export const LoginFetchData = (body) => {
-  return fetch("https://hms-server.herokuapp.com/graphql", {
+  return fetch("https://hms-server-5ef591a9975d.herokuapp.com/graphql", {
     method: "POST",
     body: JSON.stringify(body),
     headers: {
@@ -62,7 +62,7 @@ export const LoginFetchData = (body) => {
 };
 
 export const LockScreenValidate = (body) => {
-  return fetch("https://hms-server.herokuapp.com/graphql", {
+  return fetch("https://hms-server-5ef591a9975d.herokuapp.com/graphql", {
     method: "POST",
     body: JSON.stringify(body),
     headers: {

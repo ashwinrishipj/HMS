@@ -3,7 +3,7 @@ import socketIOClient from "socket.io-client";
 
 const NEW_CHAT_MESSAGE_EVENT = "newChatMessage";
 // const SOCKET_SERVER_URL = "http://localhost:4000/";
-const SOCKET_SERVER_URL = 'https://hms-server.herokuapp.com/graphql';
+const SOCKET_SERVER_URL = 'https://hms-server-5ef591a9975d.herokuapp.com/graphql';
 
 export default function ChatRoom (roomId) {
   const [userMessage, setuserMessage] = useState([]);

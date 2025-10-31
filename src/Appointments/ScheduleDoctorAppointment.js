@@ -59,7 +59,7 @@ export default function ScheduleDoctorAppointment() {
             contactDetails: doctorData.email
         }
 
-        fetch('https://hms-server.herokuapp.com/graphql', {
+        fetch('https://hms-server-5ef591a9975d.herokuapp.com/graphql', {
             method: 'POST',
             body: JSON.stringify(requestBody),
             headers: {

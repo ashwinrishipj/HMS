@@ -1,7 +1,7 @@
 
 export const fetchMail = async (body) => {
 
-  return fetch("https://hms-server.herokuapp.com/graphql", {
+  return fetch("https://hms-server-5ef591a9975d.herokuapp.com/graphql", {
     method: "POST",
     body: JSON.stringify(body),
     headers: {
@@ -31,7 +31,7 @@ export const fetchMail = async (body) => {
 }
 
 export const sendEmail = async (data) =>{
-  return fetch("https://hms-server.herokuapp.com/graphql", {
+  return fetch("https://hms-server-5ef591a9975d.herokuapp.com/graphql", {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
