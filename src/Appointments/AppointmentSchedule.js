@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Card, Row, Col, Form, Button, InputGroup, Modal, Toast, CardColumns, Nav, Accordion, ModalFooter } from 'react-bootstrap';
-import { hospitalLIst, ProvinceList, doctorsList } from './HospitalList';
+import { Card, Row, Col, Form, Button, InputGroup, Modal, CardColumns, Nav } from 'react-bootstrap';
+import { hospitalLIst, ProvinceList } from './HospitalList';
 import ScheduleDoctorAppointment from './ScheduleDoctorAppointment';
 import { SessionAppointments } from './SessionAppointments';
 
@@ -10,7 +10,7 @@ export default function AppointmentSchedule() {
 	const [hospitalList, sethospitalList] = useState({});
 	const [isFormSelected, setisFormSelected] = useState(false);
 	const [isProvince, setisProvince] = useState(true);
-	const [isAppointmentScheduled, setisAppointmentScheduled] = useState(false);
+	const [, setisAppointmentScheduled] = useState(false);
 	const [show, setShow] = useState(false);
 
 	const handleClose = () => setShow(false);
@@ -440,7 +440,7 @@ export default function AppointmentSchedule() {
 																<Card.Text>
 																	{data.features}
 																</Card.Text>
-																<Button variant="outline-warning" className="mt-2" href={data.link} target="_blank">Read More...</Button>
+																<Button variant="outline-warning" className="mt-2" href={data.link} target="_blank" rel="noreferrer noopener">Read More...</Button>
 
 															</Card.Body>
 														</Card>
