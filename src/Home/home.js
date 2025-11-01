@@ -1,332 +1,289 @@
-// Home.jsx
+// MedicalDashboard.jsx
 import React, { useEffect, useState, useMemo } from "react";
-import {
-  Container,
-  Card,
-  Col,
-  Row,
-  CardColumns,
-  CardGroup,
-  Button,
-} from "react-bootstrap";
+import { Container, Row, Col, Card, CardGroup, Button, Modal } from "react-bootstrap";
 
-/**
- * Requirements before using:
- *  - Set your NewsAPI key in env: REACT_APP_NEWSAPI_KEY=your_key
- *  - npm start / build as usual (create-react-app style env variable)
- *
- * Data sources:
- *  - COVID & countries: https://disease.sh (no API key)
- *  - News: https://newsapi.org (requires API key)
- */
-
+// --- COVID DATA ---
 const DISEASE_SH_COUNTRIES = "https://disease.sh/v3/covid-19/countries";
-const NEWSAPI_TOP_HEADLINES = "https://newsapi.org/v2/top-headlines";
-const NEWSAPI_KEY = process.env.REACT_APP_NEWSAPI_KEY || "821f3ca020904207bddf11cc2e59e451"; // set this in your .env
 
-function Home() {
-  const [covidData, setCovidData] = useState(null); // the selected country's covid object
-  const [countriesList, setCountriesList] = useState([]); // [{country, countryInfo:{iso2}}...]
-  const [newsArticles, setNewsArticles] = useState([]);
-  const [queryCountryName, setQueryCountryName] = useState(""); // input value
-  const [suggestions, setSuggestions] = useState([]);
-  const [showSuggestions, setShowSuggestions] = useState(false);
-  const [loading, setLoading] = useState({ covid: false, news: false, countries: false });
+// --- MEDICAL CONDITION API (search) ---
+const CLINICAL_TABLES_API = "https://clinicaltables.nlm.nih.gov/api/conditions/v3/search";
 
-  // memo: map country name -> iso2 for quick lookup
+function MedicalDashboard() {
+  // COVID state
+  const [covidData, setCovidData] = useState(null);
+  const [countriesList, setCountriesList] = useState([]);
+  const [selectedCountry, setSelectedCountry] = useState("Canada");
+
+  // Medical condition search state
+  const [conditionQuery, setConditionQuery] = useState("");
+  const [conditions, setConditions] = useState([]);
+  const [loadingConditions, setLoadingConditions] = useState(false);
+
+  // Modal / detailed condition state
+  const [selectedCondition, setSelectedCondition] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [conditionDetails, setConditionDetails] = useState(null);
+  const [loadingDetails, setLoadingDetails] = useState(false);
+
+  // Map country name -> iso2 code (optional)
   const countryNameToIso = useMemo(() => {
     const map = new Map();
     countriesList.forEach((c) => {
-      // iso2 may be null for some entries; handle gracefully
-      if (c && c.country) {
-        map.set(c.country.toLowerCase(), (c.countryInfo && c.countryInfo.iso2) || "");
-      }
+      if (c && c.country) map.set(c.country.toLowerCase(), c.countryInfo?.iso2 || "");
     });
     return map;
   }, [countriesList]);
 
-  // load cached or remote countries list
-  const fetchCountries = async () => {
-    setLoading((s) => ({ ...s, countries: true }));
+  // Fetch all countries & set initial covid data
+  useEffect(() => {
+    const fetchCountries = async () => {
+      try {
+        const res = await fetch(DISEASE_SH_COUNTRIES);
+        const data = await res.json();
+        setCountriesList(data);
+        const initial = data.find((c) => c.country === selectedCountry);
+        setCovidData(initial);
+      } catch (err) {
+        console.error("Error fetching COVID data:", err);
+      }
+    };
+    fetchCountries();
+  }, [selectedCountry]);
+
+  // Search conditions using ClinicalTables API
+  const searchConditions = async (query) => {
+    if (!query) {
+      setConditions([]);
+      return;
+    }
+    setLoadingConditions(true);
     try {
-      const cached = localStorage.getItem("countriesList");
-      if (cached) {
-        setCountriesList(JSON.parse(cached));
-        setLoading((s) => ({ ...s, countries: false }));
+      const url = new URL(CLINICAL_TABLES_API);
+      url.searchParams.set("terms", query);
+      url.searchParams.set("maxList", 12);
+      const res = await fetch(url.toString());
+      const json = await res.json();
+      const matched = json[3] || [];
+      setConditions(matched);
+    } catch (err) {
+      console.error("Error fetching conditions:", err);
+      setConditions([]);
+    } finally {
+      setLoadingConditions(false);
+    }
+  };
+
+  // Fetch details for selected condition using Wikipedia API
+  const fetchConditionDetails = async (conditionName) => {
+    setLoadingDetails(true);
+    setConditionDetails(null);
+    try {
+      const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(conditionName)}`;
+      const res = await fetch(url);
+
+      if (res.status === 404) {
+        // Handle Wikipedia not found
+        setConditionDetails({
+          title: conditionName,
+          summary: "No Wikipedia page found for this condition.",
+          pageUrl: "",
+          description: "",
+          extractHtml: "",
+        });
         return;
       }
 
-      const res = await fetch(DISEASE_SH_COUNTRIES);
-      if (!res.ok) throw new Error(`Countries fetch failed ${res.status}`);
+      if (!res.ok) throw new Error("Failed to fetch");
+
       const data = await res.json();
-      // data is an array of country objects
-      setCountriesList(data);
-      localStorage.setItem("countriesList", JSON.stringify(data));
+
+      setConditionDetails({
+        title: data.title,
+        summary: data.extract,
+        pageUrl: data.content_urls?.desktop?.page || "",
+        description: data.description || "",
+        extractHtml: data.extract_html || "",
+      });
     } catch (err) {
-      console.error("fetchCountries error:", err);
+      console.error("Error fetching condition details:", err);
+      setConditionDetails({
+        title: conditionName,
+        summary: "No data found.",
+        pageUrl: "",
+        description: "",
+        extractHtml: "",
+      });
     } finally {
-      setLoading((s) => ({ ...s, countries: false }));
+      setLoadingDetails(false);
     }
   };
 
-  // fetch covid data for a country by name (disease.sh supports country name)
-  const fetchCovidForCountry = async (countryName = "Canada") => {
-    setLoading((s) => ({ ...s, covid: true }));
-    try {
-      const cacheKey = `covid-${countryName}`;
-      const cached = localStorage.getItem(cacheKey);
-      if (cached) {
-        setCovidData(JSON.parse(cached));
-      } else {
-        // disease.sh supports /countries/{country}
-        const url = `${DISEASE_SH_COUNTRIES}/${encodeURIComponent(countryName)}?strict=true`;
-        const res = await fetch(url);
-        if (!res.ok) throw new Error(`COVID fetch failed ${res.status}`);
-        const data = await res.json();
-        setCovidData(data);
-        localStorage.setItem(cacheKey, JSON.stringify(data));
-      }
-    } catch (err) {
-      console.error("fetchCovidForCountry error:", err);
-      setCovidData(null);
-    } finally {
-      setLoading((s) => ({ ...s, covid: false }));
-    }
+  const handleCardClick = (cond) => {
+    setSelectedCondition(cond);
+    fetchConditionDetails(cond[0]);
+    setShowModal(true);
   };
 
-  // fetch news using NewsAPI by 2-letter country code (iso2 lowercase)
-  const fetchNewsForIso2 = async (iso2) => {
-    setLoading((s) => ({ ...s, news: true }));
-    setNewsArticles([]);
-    if (!NEWSAPI_KEY) {
-      console.warn("No NewsAPI key provided. Set REACT_APP_NEWSAPI_KEY.");
-      setLoading((s) => ({ ...s, news: false }));
-      return;
-    }
-
-    if (!iso2) {
-      // fallback: fetch global headlines (without country param)
-      try {
-        const url = new URL(NEWSAPI_TOP_HEADLINES);
-        url.searchParams.set("apiKey", NEWSAPI_KEY);
-        url.searchParams.set("pageSize", "12");
-        const res = await fetch(url.toString());
-        if (!res.ok) throw new Error(`News fetch failed ${res.status}`);
-        const json = await res.json();
-        setNewsArticles(json.articles || []);
-      } catch (err) {
-        console.error("fetchNewsForIso2 (global) error:", err);
-      } finally {
-        setLoading((s) => ({ ...s, news: false }));
-      }
-      return;
-    }
-
-    try {
-      const url = new URL(NEWSAPI_TOP_HEADLINES);
-      url.searchParams.set("country", iso2.toLowerCase()); // 'us','ca' etc.
-      url.searchParams.set("apiKey", NEWSAPI_KEY);
-      url.searchParams.set("pageSize", "12");
-      const res = await fetch(url.toString());
-      if (!res.ok) throw new Error(`News fetch failed ${res.status}`);
-      const json = await res.json();
-      setNewsArticles(json.articles || []);
-    } catch (err) {
-      console.error("fetchNewsForIso2 error:", err);
-      setNewsArticles([]);
-    } finally {
-      setLoading((s) => ({ ...s, news: false }));
-    }
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedCondition(null);
+    setConditionDetails(null);
   };
 
-  // search suggestions (simple client-side filter)
-  const onCountryInputChange = (e) => {
-    const val = e.target.value;
-    setQueryCountryName(val);
-    if (!val) {
-      setSuggestions([]);
-      setShowSuggestions(false);
-      return;
-    }
-    const lower = val.toLowerCase();
-    const matches = countriesList
-      .filter((c) => c && c.country && c.country.toLowerCase().includes(lower))
-      .slice(0, 12); // limit
-    setSuggestions(matches);
-    setShowSuggestions(true);
-  };
-
-  const onSelectCountry = (countryName) => {
-    setQueryCountryName(countryName);
-    setShowSuggestions(false);
-    fetchCovidForCountry(countryName);
-    const iso2 = countryNameToIso.get(countryName.toLowerCase()) || "";
-    fetchNewsForIso2(iso2);
-  };
-
-  // hide suggestions on Escape
-  const onKeyDown = (e) => {
-    if (e.key === "Escape") setShowSuggestions(false);
-  };
-
-  // initial load: countries list, default country covid + news
-  useEffect(() => {
-    const init = async () => {
-      await fetchCountries();
-      // try to restore last selected country
-      const lastCountry = localStorage.getItem("lastCountry") || "Canada";
-      setQueryCountryName(lastCountry);
-      await fetchCovidForCountry(lastCountry);
-      const iso2 = countryNameToIso.get(lastCountry.toLowerCase()) || "";
-      await fetchNewsForIso2(iso2);
-    };
-    init();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // run once
-
-  // when covidData changes, store last country
-  useEffect(() => {
-    if (covidData && covidData.country) {
-      localStorage.setItem("lastCountry", covidData.country);
-    }
-  }, [covidData]);
-
-  // rendering helpers (safe optional chaining for older browsers)
   const displayNumber = (num) => (num === null || num === undefined ? "-" : num);
 
   return (
     <Container className="mt-3">
+      {/* COVID Section */}
       <Row>
         <Col>
-          <h5 className="text-primary mt-2">Covid-19 Tracker</h5>
-
-          <div className="text-center mb-2" style={{ position: "relative" }}>
-            <input
-              autoComplete="off"
-              onKeyDown={onKeyDown}
-              className="form-control d-inline-block"
-              value={queryCountryName}
-              style={{ width: "30%" }}
-              onChange={onCountryInputChange}
-              type="text"
-              placeholder="Search Country..."
-              aria-label="Search country"
-            />
-
-            {showSuggestions && suggestions.length > 0 && (
-              <ul
-                className="list-group home-list"
-                style={{
-                  position: "absolute",
-                  left: "35%",
-                  top: "40px",
-                  width: "30%",
-                  maxHeight: "220px",
-                  overflowY: "auto",
-                  zIndex: 999,
-                }}
-                role="listbox"
-              >
-                {suggestions.map((c, idx) => (
-                  <li
-                    key={idx}
-                    className="list-group-item list-group-item-action"
-                    style={{ cursor: "pointer" }}
-                    onClick={() => onSelectCountry(c.country)}
-                    role="option"
-                  >
-                    {c.country}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-
-          <h3 className="text-danger mt-2 text-center">
-            {covidData?.country ? `${covidData.country} COVID cases` : "Loading..."}
-          </h3>
-
-          <CardGroup className="text-light mb-3">
-            <Card className="text-center rounded-border">
-              <Card.Body>
-                <Card.Text className="font-recovered">
-                  {displayNumber(covidData?.recovered ?? covidData?.cases?.recovered)}
-                </Card.Text>
-                Recovered
-              </Card.Body>
-            </Card>
-
-            <Card className="text-center rounded-border ml-3">
-              <Card.Body>
-                <Card.Text className="font-active">
-                  {displayNumber(covidData?.active ?? covidData?.cases?.active)}
-                </Card.Text>
-                Active
-              </Card.Body>
-            </Card>
-
-            <Card className="text-center rounded-border ml-3">
-              <Card.Body>
-                <Card.Text className="font-deaths">
-                  {displayNumber(covidData?.deaths ?? covidData?.deaths?.total)}
-                </Card.Text>
-                Deaths
-              </Card.Body>
-            </Card>
-          </CardGroup>
-
-          <Card className="text-center text-light rounded-border mx-auto mt-2 p-2">
-            <Card.Body>
-              <div>
-                <strong>Critical:</strong>{" "}
-                <span className="font-active">
-                  {displayNumber(covidData?.critical ?? covidData?.cases?.critical)}
-                </span>
-              </div>
-              <div>
-                <strong>Total Affected:</strong>{" "}
-                <span className="font-active">{displayNumber(covidData?.cases?.total ?? covidData?.cases)}</span>
-              </div>
-              <div style={{ marginTop: 8 }}>
-                <small className="text-muted">
-                  {loading.covid ? "Updating..." : covidData?.updated ? `Last updated: ${new Date(covidData.updated).toLocaleString()}` : ""}
-                </small>
-              </div>
-            </Card.Body>
-          </Card>
+          <h3 className="text-primary text-center">COVID‑19 Tracker</h3>
+          <select
+            className="form-control w-50 mb-3"
+            value={selectedCountry}
+            onChange={(e) => setSelectedCountry(e.target.value)}
+          >
+            {countriesList.map((c) => (
+              <option key={c.country} value={c.country}>
+                {c.country}
+              </option>
+            ))}
+          </select>
         </Col>
       </Row>
 
+      {/* COVID stats */}
+      {covidData && (
+        <Row className="mt-2">
+          <Col>
+            <CardGroup className="text-light mb-3">
+              <Card className="text-center rounded-border">
+                <Card.Body>
+                  <Card.Text className="font-recovered display-4">
+                    {displayNumber(covidData.recovered ?? covidData.cases?.recovered)}
+                  </Card.Text>
+                  Recovered
+                </Card.Body>
+              </Card>
+              <Card className="text-center rounded-border ml-3">
+                <Card.Body>
+                  <Card.Text className="font-active display-4">
+                    {displayNumber(covidData.active ?? covidData.cases?.active)}
+                  </Card.Text>
+                  Active
+                </Card.Body>
+              </Card>
+              <Card className="text-center rounded-border ml-3">
+                <Card.Body>
+                  <Card.Text className="font-deaths display-4">
+                    {displayNumber(covidData.deaths ?? covidData.cases?.deaths)}
+                  </Card.Text>
+                  Deaths
+                </Card.Body>
+              </Card>
+            </CardGroup>
+            <Card className="text-center rounded-border mt-2">
+              <div style={{ marginTop: 0 }}>
+                <small className="text-muted">
+                  {covidData?.updated ? `Last updated: ${new Date(covidData.updated).toLocaleString()}` : ""}
+                </small>
+              </div>
+            </Card>
+          </Col>
+        </Row>
+      )}
+
+      {/* Medical Condition Search */}
       <Row className="mt-4">
         <Col>
-          <h5 className="text-primary">News</h5>
-          {NEWSAPI_KEY ? (
-            <CardColumns>
-              {newsArticles.length === 0 ? (
-                <div>{loading.news ? "Loading news..." : "No articles found."}</div>
-              ) : (
-                newsArticles.map((article, idx) => (
-                  <Card text="white" className="mt-2 text-light rounded-border" key={idx}>
-                    <Card.Body>
-                      <Card.Title>{article.title}</Card.Title>
-                      <Card.Text>{article.description}</Card.Text>
-                      <Button variant="outline-warning" href={article.url} target="_blank" rel="noreferrer">
-                        Read More...
-                      </Button>
-                    </Card.Body>
-                  </Card>
-                ))
-              )}
-            </CardColumns>
+          <h3 className="text-success text-center">Medical Condition Explorer</h3>
+          <input
+            type="text"
+            className="form-control w-50 mb-3"
+            placeholder="Search for a disease or condition..."
+            value={conditionQuery}
+            onChange={(e) => {
+              setConditionQuery(e.target.value);
+              searchConditions(e.target.value);
+            }}
+          />
+          {loadingConditions ? (
+            <div>Loading conditions…</div>
           ) : (
-            <div className="alert alert-warning">
-              No NewsAPI key detected. Set <code>REACT_APP_NEWSAPI_KEY</code> in your environment to fetch news.
+            <div style={{ height: "450px", overflowY: "auto", overflowX: "hidden", marginBottom: "20px" }}>
+              {conditions.map((cond, idx) => (
+                <Row key={idx} className="mb-3">
+                  <Col>
+                    <Card
+                      className="rounded-border p-3"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => handleCardClick(cond)}
+                    >
+                      <Card.Body>
+                        <Card.Title>{cond[0]}</Card.Title>
+                        {cond[1] && (
+                          <Card.Text>
+                            <strong>Synonyms:</strong> {cond[1].join(", ")}
+                          </Card.Text>
+                        )}
+                        {cond[2] && (
+                          <Card.Text>
+                            <strong>Category:</strong> {cond[2]}
+                          </Card.Text>
+                        )}
+                        <Card.Text className="text-muted">
+                          Click to view more detailed info in a fullscreen modal
+                        </Card.Text>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                </Row>
+              ))}
             </div>
           )}
         </Col>
       </Row>
+
+      {/* Modal for condition details */}
+      <Modal show={showModal} onHide={handleCloseModal} fullscreen scrollable>
+        <Modal.Header closeButton>
+          <Modal.Title>{conditionDetails?.title || selectedCondition?.[0]}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {loadingDetails ? (
+            <div>Loading details…</div>
+          ) : conditionDetails ? (
+            <>
+              {conditionDetails.description && (
+                <p><strong>Description:</strong> {conditionDetails.description}</p>
+              )}
+              {conditionDetails.summary && (
+                <p><strong>Summary:</strong> {conditionDetails.summary}</p>
+              )}
+              {conditionDetails.extractHtml && (
+                <div dangerouslySetInnerHTML={{ __html: conditionDetails.extractHtml }} />
+              )}
+              {conditionDetails.pageUrl && (
+                <p>
+                  <strong>Reference:</strong>{" "}
+                  <a href={conditionDetails.pageUrl} target="_blank" rel="noreferrer">
+                    Read full article on Wikipedia
+                  </a>
+                </p>
+              )}
+            </>
+          ) : (
+            <p>No details available.</p>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 }
 
-export default Home;
+export default MedicalDashboard;
